@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title><?makedown title?></title>
+    <meta charset="UTF-8" />
+    <meta name="author" content="<?makedown author?>" />
+    <meta name="date" content="<?makedown date?>" />
+    <meta name="generator" content="<?makedown version?>" />
+</head>
+<body>
+    <header>
+        <h1><?makedown title?></h1>
+    </header>
+    <main>
+        <?makedown body?>
+    </main>
+</body>
+</html>
