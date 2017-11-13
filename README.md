@@ -81,6 +81,8 @@ To github.com:somasis/www.makedown.gov.git
 updating local tracking ref 'refs/remotes/origin/master'
 ```
 
+(you can also just run `update-submodule.sh` from within the root repository to do this)
+
 ## License
 
 All files in this repository are licensed under the [0BSD license](http://landley.net/toybox/license.html).
