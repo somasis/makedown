@@ -27,7 +27,6 @@ makedown is a build system for generating static websites.
 ## Usage
 
 1. Clone this repository to a directory named "makedown" in the root of your site
-
 ```text
 $ cd www.makedown.gov
 $ ls -CFl
@@ -43,13 +42,11 @@ Unpacking objects: 100% (11/11), done.
 ```
 
 2. Symbolically link the Makefile from the "makedown" directory to your root.
-
 ```text
 $ ln -s ./makedown/Makefile Makefile
 ```
 
 3. Make a `makedown.conf` file, and a `page.template`. There's example files in this repository.
-
 ```
 $ ls -CFl
 total 16K
@@ -61,6 +58,28 @@ lrwxrwxrwx 1 somasis somasis  17 Nov 11 05:44 Makefile -> makedown/Makefile
 ```
 
 4. `make`, `make check`, `make deploy`.
+
+5. Whenever `makedown` gets some new commits, and you want to update:
+```
+$ git submodule update --checkout --remote makedown
+Submodule path 'makedown': checked out '4a2078479578c51f031fcd2ea341ca05ecea6005'                     
+$ git add -v makedown
+add 'makedown'
+$ git commit -v
+[master f57c37e] Update makedown
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+$ git push -v
+Pushing to git@github.com:somasis/www.makedown.gov.git
+Counting objects: 2, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (2/2), 254 bytes | 254.00 KiB/s, done.
+Total 2 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To github.com:somasis/www.makedown.gov.git
+   3839b44..f57c37e  master -> master
+updating local tracking ref 'refs/remotes/origin/master'
+```
 
 ## License
 
