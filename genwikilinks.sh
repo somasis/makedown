@@ -39,16 +39,19 @@ gen() {
 
 if [ "${1}" = --gen ];then
     shift
-    # redirect to stderr because else the directory cutting in find.sh eats gen's output
-    gen "$@" >&2
+    # redirect to file because else the directory cutting in find.sh eats gen's output
+    gen "$@" >> "${work}"/.genwikilinks_tmp
     exit $?
 fi
 
 self=$(readlink -f "${0}")
-srcdir="${1}"
-makedown="${2}"
-work="${3}"
+export srcdir="${1}"
+export makedown="${2}"
+export work="${3}"
 
 cd "${srcdir}"
 
-"${makedown}"/find.sh pages "${srcdir}" "${makedown}" "${work}" -exec "${self}" --gen {} \; 2>&1
+rm -f "${work}"/.genwikilinks_tmp
+"${makedown}"/find.sh pages "${srcdir}" "${makedown}" "${work}" -exec "${self}" --gen {} \;
+cat "${work}"/.genwikilinks_tmp
+rm -f "${work}"/.genwikilinks_tmp
