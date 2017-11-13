@@ -52,7 +52,7 @@ ifndef WIKI_LINKS
 endif
 
 ifeq ($(WIKI_LINKS),true)
-    WIKI_LINKS = $(WORK)/makedown_wiki_links.tmp
+    WIKI_LINKS = $(WORK)/.makedown_wiki_links.tmp
     WIKI_LINKS_ARG = --append $(WIKI_LINKS)
 else
     ifeq ($(WIKI_LINKS),false)
@@ -100,7 +100,7 @@ $(WORK)/%: $(SRCDIR)/%
 	cp "$<" "$@"
 
 deploy: all
-	rsync -v -rl --delete-after $(WORK)/ $(IMAGE)
+	rsync -v -rl --delete-after --exclude '.*' $(WORK)/ $(IMAGE)
 
 watch: all
 	$(MAKEDOWN)/devd.sh "$(WORK)"
