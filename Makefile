@@ -61,7 +61,7 @@ else
 endif
 
 ifdef MARKDOWN_FLAGS
-    MARKDOWN_FLAGS = -f "$(MARKDOWN_FLAGS)"
+    MARKDOWN_FLAGS := -f "$(MARKDOWN_FLAGS)"
 endif
 
 ifdef SITE_NAME
