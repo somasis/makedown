@@ -48,10 +48,11 @@ self=$(readlink -f "${0}")
 export srcdir="${1}"
 export makedown="${2}"
 export work="${3}"
+export output="${4}"
 
 cd "${srcdir}"
 
 rm -f "${work}"/.genwikilinks_tmp
 "${makedown}"/find.sh pages "${srcdir}" "${makedown}" "${work}" -exec "${self}" --gen {} \;
-cat "${work}"/.genwikilinks_tmp
+grep '^\[' "${work}"/.genwikilinks_tmp > "${output}"
 rm -f "${work}"/.genwikilinks_tmp

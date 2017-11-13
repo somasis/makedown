@@ -89,7 +89,7 @@ check-links: all
 
 $(WIKI_LINKS):
 	@mkdir -p $(dir $@)
-	$(MAKEDOWN)/genwikilinks.sh $(SRCDIR) $(MAKEDOWN) $(WORK) $(WIKI_LINKS) > "$@"
+	$(MAKEDOWN)/genwikilinks.sh $(SRCDIR) $(MAKEDOWN) $(WORK) $(WIKI_LINKS)
 
 $(WORK)/%.html: $(SRCDIR)/%.md $($(MAKEDOWN)/makedown.sh --print-template "$<") $(WIKI_LINKS)
 	@mkdir -p $(dir $@)
