@@ -181,7 +181,7 @@ markdown ${markdown_flags} -T -n "${bodymd}" > "${toc}"
 if git rev-parse HEAD >/dev/null 2>&1 && git ls-files --error-unmatch "${input}" >/dev/null 2>&1;then
     tree_commit=$(git rev-parse HEAD)
     file_commit=$(git log --format='%H' -1 "${input}")
-    author=$(git shortlog -ns "${input}" | cut -d$'\t' -f2 | sed 's/$/,/')
+    author=$(git shortlog -ns "${input}" | sed 's/.*\t//;s/$/,/')
     if [ $(printf '%s\n' "${author}" | wc -l) -gt 10 ];then
         author=$(printf '%s\n' "${author}" | head -n 10)
         author=$(printf '%s\n' "${author}" "...")
