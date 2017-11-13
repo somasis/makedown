@@ -27,7 +27,7 @@ gen() {
             f_full=$(readlink -f "${f}" | sed "s/${pwd_escaped}//;s/\.md$/\.html/")
             f_esc=$(printf '%s' "${f_full}" | sed 's/\//\\\//g')
             printf "[%s]: %s\n" "${title}" "${f_full}"
-            markdown -f toc,html,urlencodedanchor -T "${f}" | \
+            markdown -f toc,html,html5anchor -T "${f}" | \
                 sed -r \
                     -e "/<a name=(.*)\n/N" \
                     -e "/^(<h[1-6]>|<a name=)/!d" \

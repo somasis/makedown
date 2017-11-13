@@ -76,7 +76,7 @@ elif ! [ -r "${input}" ];then
     die "Can't read \"${input}\"." 13
 fi
 
-markdown_flags="-f toc,urlencodedanchor${flags:+,${flags}}"
+markdown_flags="-f toc,html5anchor${flags:+,${flags}}"
 
 temp_recurse() {
     # recurse to find parent templates

@@ -35,7 +35,7 @@ STYLE           = $(addprefix $(WORK)/,$(shell $(MAKEDOWN)/find.sh style $(SRCDI
 SCRIPT          = $(addprefix $(WORK)/,$(shell $(MAKEDOWN)/find.sh script $(SRCDIR) $(MAKEDOWN) $(WORK)))
 AUX             = $(addprefix $(WORK)/,$(shell $(MAKEDOWN)/find.sh aux $(SRCDIR) $(MAKEDOWN) $(WORK)))
 
-MARKDOWN_FLAGS  := alphalist,autolink,divquote,definitionlist,dldiscount,dlextra,emphasis,ext,fencedcode,footnotes,githubtags,html,image,latex,links,smarty,strict,strikethrough,style,superscript,tables,tabstop,urlencodedanchor
+MARKDOWN_FLAGS  := alphalist,autolink,divquote,definitionlist,dldiscount,dlextra,emphasis,ext,fencedcode,footnotes,githubtags,html,image,latex,links,smarty,strict,strikethrough,style,superscript,tables,tabstop,html5anchor
 
 include $(SRCDIR)/makedown.conf
 
@@ -58,6 +58,10 @@ else
     ifeq ($(WIKI_LINKS),false)
         WIKI_LINKS =
     endif
+endif
+
+ifdef MARKDOWN_FLAGS
+    MARKDOWN_FLAGS = -f "$(MARKDOWN_FLAGS)"
 endif
 
 ifdef SITE_NAME
@@ -89,7 +93,7 @@ $(WIKI_LINKS):
 
 $(WORK)/%.html: $(SRCDIR)/%.md $($(MAKEDOWN)/makedown.sh --print-template "$<") $(WIKI_LINKS)
 	@mkdir -p $(dir $@)
-	$(MAKEDOWN)/makedown.sh $(SITE_NAME_ARG) $(WIKI_LINKS_ARG) "$<" "$@"
+	$(MAKEDOWN)/makedown.sh $(MARKDOWN_FLAGS) $(SITE_NAME_ARG) $(WIKI_LINKS_ARG) "$<" "$@"
 
 $(WORK)/%: $(SRCDIR)/%
 	@mkdir -p $(dir $@)

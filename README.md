@@ -7,7 +7,7 @@ makedown is a build system for generating static websites.
 ### Building
 
 - [GNU `make`](https://www.gnu.org/software/make/)
-- [discount `markdown`](http://www.pell.portland.or.us/~orc/Code/discount/)
+- [discount `markdown`](http://www.pell.portland.or.us/~orc/Code/discount/) (at least version 2.2.2)
 
 ### Checking
 
