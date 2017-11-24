@@ -47,16 +47,14 @@ ifndef WORK
     $(error WORK should be set to a directory)
 endif
 
-ifndef WIKI_LINKS
-    $(error WIKI_LINKS should be set to true or false)
-endif
-
 ifeq ($(WIKI_LINKS),true)
     WIKI_LINKS = $(WORK)/.makedown_wiki_links.tmp
     WIKI_LINKS_ARG = --append $(WIKI_LINKS)
 else
     ifeq ($(WIKI_LINKS),false)
         WIKI_LINKS =
+    else
+        $(error WIKI_LINKS should be set to true or false)
     endif
 endif
 
