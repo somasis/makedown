@@ -37,7 +37,8 @@ AUX             = $(addprefix $(WORK)/,$(shell $(MAKEDOWN)/find.sh aux $(SRCDIR)
 
 MARKDOWN_FLAGS  := alphalist,autolink,divquote,definitionlist,dldiscount,dlextra,emphasis,ext,fencedcode,footnotes,githubtags,html,image,latex,links,smarty,strict,strikethrough,style,superscript,tables,tabstop,html5anchor
 
-include $(SRCDIR)/makedown.conf
+include $(MAKEDOWN)/makedown.conf
+-include $(SRCDIR)/makedown.conf
 
 ifndef IMAGE
     $(error IMAGE should be set to a directory)
