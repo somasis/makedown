@@ -190,7 +190,7 @@ if git rev-parse HEAD >/dev/null 2>&1 && git ls-files --error-unmatch "${input}"
     date=$(git log --date='format:%Y-%m-%d' --format='%ad' -1 "${input}")
 fi
 
-markdown_version="$(markdown -VV)"
+markdown_version=$(markdown -f "${markdown_flags}" -VV)
 
 htmlescape() {
     printf '%s' "$@" | sed 's/</\&lt;/g;s/>/\&gt;/g;s/&/\&amp;/g'
