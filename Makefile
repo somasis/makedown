@@ -67,6 +67,16 @@ ifdef SITE_NAME
     SITE_NAME_ARG = --name "$(SITE_NAME)"
 endif
 
+ifeq ($(CHECK_LINKS_ON_WATCH),true)
+	CHECK_LINKS_ON_WATCH = check
+else
+    ifeq ($(CHECK_LINKS_ON_WATCH),false)
+        CHECK_LINKS_ON_WATCH = lint
+    else
+        $(error CHECK_LINKS_ON_WATCH should be set to true or false)
+    endif
+endif
+
 all: $(PAGES) $(STYLE) $(SCRIPT) $(AUX)
 clean:
 	rm -f $(PAGES)
@@ -103,10 +113,10 @@ deploy: all
 
 watch: all
 	$(MAKEDOWN)/devd.sh "$(WORK)"
-	while true; do \
+	-while true; do \
 	    (for type in pages style script aux;do \
 	        $(MAKEDOWN)/find.sh --absolute $${type} $(SRCDIR) $(MAKEDOWN) $(WORK) || exit 2; \
-	    done) | entr -c sh -c '$(MAKE) WORK=$(WORK) check && $(MAKE) WORK=$(WORK)'; \
+	    done) | entr -c sh -c '$(MAKE) WORK=$(WORK) $(CHECK_LINKS_ON_WATCH) all'; \
 	done
 	kill $$(cat $(WORK)/devd.pid)
 
