@@ -109,7 +109,7 @@ $(WORK)/%: $(SRCDIR)/%
 	cp "$<" "$@"
 
 deploy: all
-	rsync -v -rl --delete-after --exclude '.*' $(WORK)/ $(IMAGE)
+	rsync -v -rl --delete-after --exclude '.*' $(DEPLOY_ARGS) $(WORK)/ $(IMAGE)
 
 watch: all
 	$(MAKEDOWN)/devd.sh "$(WORK)"
