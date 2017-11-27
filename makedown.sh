@@ -186,7 +186,7 @@ if git rev-parse HEAD >/dev/null 2>&1 && git ls-files --error-unmatch "${input}"
         author=$(printf '%s\n' "${author}" | head -n 10)
         author=$(printf '%s\n' "${author}" "...")
     fi
-    author=$(printf '%s\n' "${author}" | tr '\n' ' ' | sed -r 's/,? $//')
+    author=$(printf '%s\n' "${author}" | tr '\n' ' ' | sed -E 's/,? $//')
     date=$(git log --date='format:%Y-%m-%d' --format='%ad' -1 "${input}")
 fi
 
