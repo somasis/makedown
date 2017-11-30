@@ -84,7 +84,7 @@ temp_recurse() {
     old_pwd="${PWD}"
     cd "${dir}"
     until [ "${PWD}" = / ];do
-        for f in "${PWD}"/page.template "${PWD}"/${base}.template;do
+        for f in "${PWD}"/${base}.template "${PWD}"/page.template;do
             [ -e "${f}" ] && printf '%s' "${f}" && return 0
         done
         cd ..
