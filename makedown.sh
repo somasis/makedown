@@ -175,8 +175,8 @@ fi
 # sed generates two anchors, one with dashes and one with underscores; however, it makes incorrect changes
 # with anchors that contain dashes.
 # avoids breaking mediawiki style anchor links.
-stderr "markdown ${markdown_flags} \"${bodymd}\" | sed -E '/<a name=\".+\"><\/a>/ { p; s/-/_/g; }' > \"${body}\""
-markdown ${markdown_flags} "${bodymd}" | sed -E '/<a name=".+"><\/a>/ { p; s/-/_/g; }' > "${body}"
+stderr "markdown ${markdown_flags} \"${bodymd}\" | sed -E '/^<a name=\".+\"><\/a>$/ { p; s/-/_/g; }' > \"${body}\""
+markdown ${markdown_flags} "${bodymd}" | sed -E '/^<a name=".+"><\/a>$/ { p; s/-/_/g; }' > "${body}"
 
 stderr "markdown ${markdown_flags} -T -n \"${bodymd}\" > \"${toc}\""
 markdown ${markdown_flags} -T -n "${bodymd}" > "${toc}"
