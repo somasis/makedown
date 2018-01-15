@@ -25,16 +25,20 @@ die() {
 
 help() {
     printf '%s\n\n' \
-        "usage: ${0##*/} [--help] [--flags <flags>] [--name <site name>] [--append <file>] [--print-template] <input>"
+        "usage: ${0##*/} [--help] [--flags <flags>] [--name <site name>] [--append <file>] [--print-template] [--print-title] [--print-description] <input>"
     printf '    %-10s %s\n' \
         "--flags <flag1,flag2>" "This argument is passed to \`markdown\`. Comma separated." \
         "--print-template"      "Print the template that would be used for generating <input>'s HTML." \
+        "--print-title"         "Print <input>'s title." \
+        "--print-description"   "Print <input>'s description." \
         "--append <file>"       "Markdown formatted file to append to the input before converting to HTML." \
         "--name <site name>"    "Set the site name. Used for setting the page titles." \
         "--help"                "This."
 }
 
 template_only=false
+title_only=false
+description_only=false
 
 if [ $# -lt 1 ];then
     help
@@ -61,6 +65,12 @@ while [ $# -ne 1 ];do
         ;;
         --print-template)
             template_only=true
+        ;;
+        --print-title)
+            title_only=true
+        ;;
+        --print-description)
+            description_only=true
         ;;
     esac
     shift
@@ -122,6 +132,8 @@ html=$(mktemp)
 html2=$(mktemp)
 toc=$(mktemp)
 
+has_title=false
+has_description=false
 # # title\n
 if [ $(sed -n '1p' "${input}" | grep -Ec '^# ') -eq 1 ] && \
    [ $(sed -n '2p' "${input}" | grep -Ec '^## ') -lt 1 ];then
@@ -143,6 +155,15 @@ else
     has_title=true
     has_description=true
 fi
+
+if [ "${title_mode}" = true ];then
+    "${has_title}" && printf '%s\n' "${title}" && exit
+    exit 1
+elif [ "${description_mode}" = true ];then
+    "${has_description}" && printf '%s\n' "${description}" && exit
+    exit 1
+fi
+
 
 title_unprefixed="${title}"
 
