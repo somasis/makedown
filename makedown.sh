@@ -25,7 +25,7 @@ die() {
 
 help() {
     printf '%s\n\n' \
-        "usage: ${0##*/} [--help] [--flags <flags>] [--name <site name>] [--append <file>] [--print-template] <input> <destination>"
+        "usage: ${0##*/} [--help] [--flags <flags>] [--name <site name>] [--append <file>] [--print-template] <input>"
     printf '    %-10s %s\n' \
         "--flags <flag1,flag2>" "This argument is passed to \`markdown\`. Comma separated." \
         "--print-template"      "Print the template that would be used for generating <input>'s HTML." \
@@ -36,12 +36,12 @@ help() {
 
 template_only=false
 
-if [ $# -lt 2 ];then
+if [ $# -lt 1 ];then
     help
     exit 255
 fi
 
-while [ $# -ne 2 ];do
+while [ $# -ne 1 ];do
     case "${1}" in
         --help)
             help
@@ -67,9 +67,8 @@ while [ $# -ne 2 ];do
 done
 
 input="${1}"
-destination="${2}"
 
-if [ -z "${input}${destination}" ];then
+if [ -z "${input}" ];then
     help
     exit 255
 elif ! [ -r "${input}" ];then
@@ -242,8 +241,4 @@ edo sed \
         d
     }" "${html}" > "${temp2}"
 
-if [ -n "${destination}" ];then
-    cat "${temp2}" > "${destination}"
-else
-    cat "${temp2}"
-fi
+cat "${temp2}"
