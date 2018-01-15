@@ -77,6 +77,14 @@ case "${type}" in
             \) \
             "$@"
     ;;
+    dir)
+        _find "${SRCDIR}" \
+            \( -type d -o -type l -a -xtype d \) \
+            \! \( \
+                -name '.*' \
+                -o -name 'makedown' \
+            \) \
+            "$@"
 esac
 
 
