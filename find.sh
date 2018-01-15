@@ -72,6 +72,7 @@ case "${type}" in
                 -o -name '*.css' \
                 -o -name '*.template' \
                 -o -name 'makedown.conf' \
+                -o -name 'Makefile.local' \
                 -o -name 'Makefile' \
             \) \
             "$@"

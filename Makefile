@@ -81,8 +81,18 @@ endif
 export MARKDOWN_FLAGS
 export SITE_NAME
 
-all: $(PAGES) $(STYLE) $(SCRIPT) $(AUX)
-clean:
+all: makedown-all
+clean: makedown-clean
+check: makedown-check
+lint: makedown-lint
+check-links: makedown-check-links
+deploy: makedown-deploy
+watch: makedown-watch
+
+-include $(SRCDIR)/Makefile.local
+
+makedown-all: $(PAGES) $(STYLE) $(SCRIPT) $(AUX)
+makedown-clean:
 	rm -f $(PAGES)
 	rm -f $(STYLE)
 	rm -f $(SCRIPT)
@@ -91,12 +101,12 @@ clean:
 	rm -f $(WORK)/devd.log $(WORK)/devd.pid $(WORK)/devd.address
 	-find $(WORK) -type d -empty -print -delete
 
-check: lint check-links
+makedown-check: lint check-links
 
-lint: all
+makedown-lint: all
 	mdl -s $(MAKEDOWN)/mdlstyle.rb $(PAGES)
 
-check-links: all
+makedown-check-links: all
 	$(MAKEDOWN)/devd.sh $(WORK)
 	$(MAKEDOWN)/linkchecker.sh $(WORK) "$$(cat $(WORK)/devd.address)"
 
@@ -112,10 +122,10 @@ $(WORK)/%: $(SRCDIR)/%
 	@mkdir -p $(dir $@)
 	cp "$<" "$@"
 
-deploy: all
+makedown-deploy: all
 	rsync -v -rl --delete-after --exclude '.*' $(DEPLOY_ARGS) $(WORK)/ $(IMAGE)
 
-watch: all
+makedown-watch: all
 	$(MAKEDOWN)/devd.sh "$(WORK)"
 	-while true; do \
 	    (for type in pages style script aux;do \
@@ -125,3 +135,4 @@ watch: all
 	kill $$(cat $(WORK)/devd.pid)
 
 .PHONY: all clean check lint check-links deploy watch
+.PHONY: makedown-all makedown-clean makedown-check makedown-lint makedown-check-links makedown-deploy makedown-watch
