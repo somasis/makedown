@@ -116,7 +116,7 @@ $(WIKI_LINKS):
 
 $(WORK)/%.html: $(SRCDIR)/%.md $($(MAKEDOWN)/makedown.sh --print-template "$<") $(WIKI_LINKS)
 	@mkdir -p $(dir $@)
-	$(MAKEDOWN)/makedown.sh $(MARKDOWN_FLAGS) $(SITE_NAME_ARG) $(WIKI_LINKS_ARG) "$<" "$@"
+	$(MAKEDOWN)/makedown.sh $(MARKDOWN_FLAGS) $(SITE_NAME_ARG) $(WIKI_LINKS_ARG) "$<" > "$@"
 
 $(WORK)/%: $(SRCDIR)/%
 	@mkdir -p $(dir $@)
