@@ -21,19 +21,20 @@
 #     entr (http://entrproject.org/)
 #
 
-MAKEDOWN        := $(abspath $(dir $(abspath $(lastword $(MAKEFILE_LIST)))))/makedown
-SRCDIR          := $(abspath $(MAKEDOWN)/..)
-IMAGE           ?= $(SRCDIR)/image
-WORK            ?= $(SRCDIR)/work
+export MAKEDOWN        := $(abspath $(dir $(abspath $(lastword $(MAKEFILE_LIST)))))/makedown
+export SRCDIR          := $(abspath $(MAKEDOWN)/..)
+export IMAGE           ?= $(SRCDIR)/image
+export WORK            ?= $(SRCDIR)/work
 
 ifneq "$(wildcard $(MAKEDOWN)/find.sh)" "$(MAKEDOWN)/find.sh"
     $(error Please don't try to run makedown from the directory of makedown's files)
 endif
 
-PAGES           = $(addprefix $(WORK)/,$(addsuffix .html,$(basename $(shell $(MAKEDOWN)/find.sh pages $(SRCDIR) $(MAKEDOWN) $(WORK)))))
-STYLE           = $(addprefix $(WORK)/,$(shell $(MAKEDOWN)/find.sh style $(SRCDIR) $(MAKEDOWN) $(WORK)))
-SCRIPT          = $(addprefix $(WORK)/,$(shell $(MAKEDOWN)/find.sh script $(SRCDIR) $(MAKEDOWN) $(WORK)))
-AUX             = $(addprefix $(WORK)/,$(shell $(MAKEDOWN)/find.sh aux $(SRCDIR) $(MAKEDOWN) $(WORK)))
+# HACK: `shell` doesn't take exported commands. this is ugly. :(
+PAGES           = $(addprefix $(WORK)/,$(addsuffix .html,$(basename $(shell MAKEDOWN=$(MAKEDOWN) SRCDIR=$(SRCDIR) WORK=$(WORK) IMAGE=$(IMAGE) $(MAKEDOWN)/find.sh pages))))
+STYLE           = $(addprefix $(WORK)/,$(shell MAKEDOWN=$(MAKEDOWN) SRCDIR=$(SRCDIR) WORK=$(WORK) IMAGE=$(IMAGE) $(MAKEDOWN)/find.sh style))
+SCRIPT          = $(addprefix $(WORK)/,$(shell MAKEDOWN=$(MAKEDOWN) SRCDIR=$(SRCDIR) WORK=$(WORK) IMAGE=$(IMAGE) $(MAKEDOWN)/find.sh script))
+AUX             = $(addprefix $(WORK)/,$(shell MAKEDOWN=$(MAKEDOWN) SRCDIR=$(SRCDIR) WORK=$(WORK) IMAGE=$(IMAGE) $(MAKEDOWN)/find.sh aux))
 
 MARKDOWN_FLAGS  := alphalist,autolink,divquote,definitionlist,dldiscount,dlextra,emphasis,ext,fencedcode,footnotes,githubtags,html,image,latex,links,smarty,strict,strikethrough,style,superscript,tables,tabstop,html5anchor
 
@@ -77,6 +78,9 @@ else
     endif
 endif
 
+export MARKDOWN_FLAGS
+export SITE_NAME
+
 all: $(PAGES) $(STYLE) $(SCRIPT) $(AUX)
 clean:
 	rm -f $(PAGES)
@@ -98,7 +102,7 @@ check-links: all
 
 $(WIKI_LINKS):
 	@mkdir -p $(dir $@)
-	$(MAKEDOWN)/genwikilinks.sh $(SRCDIR) $(MAKEDOWN) $(WORK) $(WIKI_LINKS)
+	$(MAKEDOWN)/genwikilinks.sh $(WIKI_LINKS)
 
 $(WORK)/%.html: $(SRCDIR)/%.md $($(MAKEDOWN)/makedown.sh --print-template "$<") $(WIKI_LINKS)
 	@mkdir -p $(dir $@)
@@ -115,7 +119,7 @@ watch: all
 	$(MAKEDOWN)/devd.sh "$(WORK)"
 	-while true; do \
 	    (for type in pages style script aux;do \
-	        $(MAKEDOWN)/find.sh --absolute $${type} $(SRCDIR) $(MAKEDOWN) $(WORK) || exit 2; \
+	        $(MAKEDOWN)/find.sh --absolute $${type} || exit 2; \
 	    done) | entr -c sh -c '$(MAKE) WORK=$(WORK) $(CHECK_LINKS_ON_WATCH) all'; \
 	done
 	kill $$(cat $(WORK)/devd.pid)

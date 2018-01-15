@@ -40,19 +40,20 @@ gen() {
 if [ "${1}" = --gen ];then
     shift
     # redirect to file because else the directory cutting in find.sh eats gen's output
-    gen "$@" >> "${work}"/.genwikilinks_tmp
+    gen "$@" >> "${WORK}"/.genwikilinks_tmp
     exit $?
 fi
 
+[ -n "${SRCDIR}" ] || exit 127
+[ -n "${MAKEDOWN}" ] || exit 127
+[ -n "${WORK}" ] || exit 127
+
 self=$(readlink -f "${0}")
-export srcdir="${1}"
-export makedown="${2}"
-export work="${3}"
-export output="${4}"
+output="${1}"
 
-cd "${srcdir}"
+cd "${SRCDIR}"
 
-rm -f "${work}"/.genwikilinks_tmp
-"${makedown}"/find.sh pages "${srcdir}" "${makedown}" "${work}" -exec "${self}" --gen {} \;
-grep '^\[' "${work}"/.genwikilinks_tmp > "${output}"
-rm -f "${work}"/.genwikilinks_tmp
+rm -f "${WORK}"/.genwikilinks_tmp
+"${MAKEDOWN}"/find.sh pages "${SRCDIR}" "${MAKEDOWN}" "${WORK}" -exec "${self}" --gen {} \;
+grep '^\[' "${WORK}"/.genwikilinks_tmp > "${output}"
+rm -f "${WORK}"/.genwikilinks_tmp

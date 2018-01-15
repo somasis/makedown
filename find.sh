@@ -17,54 +17,54 @@ else
 fi
  
 type="${1}"; shift
-srcdir=$(readlink -f "${1}"); shift
-makedown=$(readlink -f "${1}"); shift
-work=$(readlink -f "${1}"); shift
+[ -n "${SRCDIR}" ] || exit 127
+[ -n "${MAKEDOWN}" ] || exit 127
+[ -n "${WORK}" ] || exit 127
 
-[ "${absolute}" = true ] || srcdir_count=$(( $(printf '%s' "${srcdir}"/ | tr -cd '/' | wc -c) + 1 ))
+[ "${absolute}" = true ] || srcdir_count=$(( $(printf '%s' "${SRCDIR}"/ | tr -cd '/' | wc -c) + 1 ))
 
-cd "${srcdir}"
+cd "${SRCDIR}"
 
 _find() {
     path="$1"; shift
     if [ "${absolute}" = true ];then
         find "$path" \
             \! \( -name ".*" \) \
-            \! \( -path "${srcdir}/*.*/*" -prune \) \
-            \! \( -path "${makedown}/*" -prune \) \
-            \! \( -path "${work}/*" -prune \) \
+            \! \( -path "${SRCDIR}/*.*/*" -prune \) \
+            \! \( -path "${MAKEDOWN}/*" -prune \) \
+            \! \( -path "${WORK}/*" -prune \) \
             "$@"
     else
         find "$path" \
             \! \( -name ".*" \) \
-            \! \( -path "${srcdir}/*.*/*" -prune \) \
-            \! \( -path "${makedown}/*" -prune \) \
-            \! \( -path "${work}/*" -prune \) \
+            \! \( -path "${SRCDIR}/*.*/*" -prune \) \
+            \! \( -path "${MAKEDOWN}/*" -prune \) \
+            \! \( -path "${WORK}/*" -prune \) \
             "$@" | cut -d'/' -f${srcdir_count}-
     fi
 }
 
 case "${type}" in
     pages)
-        _find "${srcdir}" \
+        _find "${SRCDIR}" \
             \( -type f -o -type l -a -xtype f \) \
             -name '*.md' \
             "$@"
     ;;
     script)
-        _find "${srcdir}" \
+        _find "${SRCDIR}" \
             \( -type f -o -type l -a -xtype f \) \
             -name '*.js' \
             "$@"
     ;;
     style)
-        _find "${srcdir}" \
+        _find "${SRCDIR}" \
             \( -type f -o -type l -a -xtype f \) \
             -name '*.css' \
             "$@"
     ;;
     aux)
-        _find "${srcdir}" \
+        _find "${SRCDIR}" \
             \( -type f -o -type l -a -xtype f \) \
             \! \( \
                 -name '*.md' \
