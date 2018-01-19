@@ -156,10 +156,10 @@ else
     has_description=true
 fi
 
-if [ "${title_mode}" = true ];then
+if [ "${title_only}" = true ];then
     "${has_title}" && printf '%s\n' "${title}" && exit
     exit 1
-elif [ "${description_mode}" = true ];then
+elif [ "${description_only}" = true ];then
     "${has_description}" && printf '%s\n' "${description}" && exit
     exit 1
 fi
