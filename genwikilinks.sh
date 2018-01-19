@@ -54,6 +54,6 @@ output="${1}"
 cd "${SRCDIR}"
 
 rm -f "${WORK}"/.genwikilinks_tmp
-"${MAKEDOWN}"/find.sh pages "${SRCDIR}" "${MAKEDOWN}" "${WORK}" -exec "${self}" --gen {} \;
+"${MAKEDOWN}"/find.sh pages -exec "${self}" --gen {} \;
 grep '^\[' "${WORK}"/.genwikilinks_tmp > "${output}"
 rm -f "${WORK}"/.genwikilinks_tmp
