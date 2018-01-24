@@ -40,17 +40,13 @@ template_only=false
 title_only=false
 description_only=false
 
-if [ $# -lt 1 ];then
+if [ "${1}" = "--help" ] || [ $# -lt 1 ];then
     help
     exit 255
 fi
 
 while [ $# -ne 1 ];do
     case "${1}" in
-        --help)
-            help
-            exit 255
-        ;;
         --flags)
             flags="${2}"
             shift
