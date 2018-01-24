@@ -97,7 +97,7 @@ makedown-clean:
 	rm -f $(STYLE)
 	rm -f $(SCRIPT)
 	rm -f $(AUX)
-	rm -f $(WORK)/makedown_wiki_links.tmp
+	rm -f $(WORK)/.makedown_wiki_links.tmp
 	rm -f $(WORK)/devd.log $(WORK)/devd.pid $(WORK)/devd.address
 	-find $(WORK) -type d -empty -print -delete
 
