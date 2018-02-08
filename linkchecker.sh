@@ -11,7 +11,7 @@
 [ -n "${WORK}" ] || exit 127
 
 set -x
-linkchecker --check-extern --no-robots "$1" &
+linkchecker --check-extern --no-robots "$@" $(cat "${WORK}"/devd.address) &
 linkchecker_pid=$!
 trap 'kill $linkchecker_pid' SIGINT
 wait

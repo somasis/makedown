@@ -108,7 +108,7 @@ makedown-lint: all
 
 makedown-check-links: all
 	$(MAKEDOWN)/devd.sh $(DEVD_ARGS) -t
-	$(MAKEDOWN)/linkchecker.sh "$$(cat $(WORK)/devd.address)"
+	$(MAKEDOWN)/linkchecker.sh $(LINKCHECKER_ARGS)
 
 $(WIKI_LINKS):
 	@mkdir -p $(dir $@)
