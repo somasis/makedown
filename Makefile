@@ -107,7 +107,7 @@ makedown-lint: all
 	mdl -s $(MAKEDOWN)/mdlstyle.rb $(PAGES)
 
 makedown-check-links: all
-	$(MAKEDOWN)/devd.sh $(DEVD_ARGS)
+	$(MAKEDOWN)/devd.sh $(DEVD_ARGS) -t
 	$(MAKEDOWN)/linkchecker.sh "$$(cat $(WORK)/devd.address)"
 
 $(WIKI_LINKS):
