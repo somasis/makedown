@@ -36,8 +36,6 @@ STYLE           = $(addprefix $(WORK)/,$(shell MAKEDOWN=$(MAKEDOWN) SRCDIR=$(SRC
 SCRIPT          = $(addprefix $(WORK)/,$(shell MAKEDOWN=$(MAKEDOWN) SRCDIR=$(SRCDIR) WORK=$(WORK) IMAGE=$(IMAGE) $(MAKEDOWN)/find.sh script))
 AUX             = $(addprefix $(WORK)/,$(shell MAKEDOWN=$(MAKEDOWN) SRCDIR=$(SRCDIR) WORK=$(WORK) IMAGE=$(IMAGE) $(MAKEDOWN)/find.sh aux))
 
-MARKDOWN_FLAGS  := alphalist,autolink,divquote,definitionlist,dldiscount,dlextra,emphasis,ext,fencedcode,footnotes,githubtags,html,image,latex,links,smarty,strict,strikethrough,style,superscript,tables,tabstop,html5anchor
-
 include $(MAKEDOWN)/makedown.conf
 -include $(SRCDIR)/makedown.conf
 
