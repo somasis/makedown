@@ -107,7 +107,7 @@ makedown-lint: all
 	mdl -s $(MAKEDOWN)/mdlstyle.rb $(PAGES)
 
 makedown-check-links: all
-	$(MAKEDOWN)/devd.sh $(WORK)
+	$(MAKEDOWN)/devd.sh $(DEVD_ARGS)
 	$(MAKEDOWN)/linkchecker.sh $(WORK) "$$(cat $(WORK)/devd.address)"
 
 $(WIKI_LINKS):
@@ -126,7 +126,7 @@ makedown-deploy: all
 	rsync -v -rl --delete-after --exclude '.*' $(DEPLOY_ARGS) $(WORK)/ $(IMAGE)
 
 makedown-watch: all
-	$(MAKEDOWN)/devd.sh "$(WORK)"
+	$(MAKEDOWN)/devd.sh $(DEVD_ARGS)
 	-while true; do \
 	    (for type in pages style script aux;do \
 	        $(MAKEDOWN)/find.sh --absolute $${type} || exit 2; \

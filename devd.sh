@@ -7,9 +7,11 @@
 # starts up an instance of the devd server, then gets the address and PID of it,
 # so that it can be killed once it is no longer needed.
 #
- 
+
+[ -n "${WORK}" ] || exit 127
+
 set -x
-nohup devd -t "$1" > "$1"/devd.log &
-echo $! > "$1"/devd.pid
+nohup devd "${@}" "${WORK}" > "${WORK}"/devd.log &
+echo $! > "${WORK}"/devd.pid
 sleep 1
-sed -r '/Listening/!d;s/Listening on (.+) .*/\1/' "$1"/devd.log > "$1"/devd.address
+sed -r '/Listening/!d;s/Listening on (.+) .*/\1/' "${WORK}"/devd.log > "${WORK}"/devd.address
