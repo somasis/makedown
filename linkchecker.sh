@@ -8,16 +8,18 @@
 # the script.
 #
 
+[ -n "${WORK}" ] || exit 127
+
 set -x
-linkchecker --check-extern --no-robots "$2" &
+linkchecker --check-extern --no-robots "$1" &
 linkchecker_pid=$!
 trap 'kill $linkchecker_pid' SIGINT
 wait
 linkchecker_exit=$?
 trap - SIGINT
 
-kill $(cat "$1"/devd.pid)
-rm "$1"/devd.pid "$1"/devd.address
+kill $(cat "${WORK}"/devd.pid)
+rm "${WORK}"/devd.pid "${WORK}"/devd.address
 if [ $linkchecker_exit -ne 0 ];then
     exit 1
 fi
