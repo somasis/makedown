@@ -67,7 +67,7 @@ ifdef SITE_NAME
 endif
 
 ifeq ($(CHECK_LINKS_ON_WATCH),true)
-	CHECK_LINKS_ON_WATCH = check
+    CHECK_LINKS_ON_WATCH = check
 else
     ifeq ($(CHECK_LINKS_ON_WATCH),false)
         CHECK_LINKS_ON_WATCH = lint
