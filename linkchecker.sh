@@ -2,7 +2,7 @@
 #
 # linkchecker.sh
 # part of makedown, a build system for making markdown websites.
-# https://github.com/somasis/makedown
+# https://gitlab.com/somasis/makedown
 #
 # runs linkchecker on the devd server started prior to running
 # the script.

@@ -2,7 +2,7 @@
 #
 # devd.sh
 # part of makedown, a build system for making markdown websites.
-# https://github.com/somasis/makedown
+# https://gitlab.com/somasis/makedown
 #
 # starts up an instance of the devd server, then gets the address and PID of it,
 # so that it can be killed once it is no longer needed.

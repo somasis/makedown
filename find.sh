@@ -2,7 +2,7 @@
 #
 # find.sh
 # part of makedown, a build system for making markdown websites.
-# https://github.com/somasis/makedown
+# https://gitlab.com/somasis/makedown
 #
 # uses `find` to get a list of files matching <type>, with some exclusions.
 # also, gets a relative pathname.
