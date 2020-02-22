@@ -1,7 +1,7 @@
 #!/bin/make -f
 #
 # makedown - a build system for making markdown websites.
-# https://gitlab.com/somasis/makedown
+# https://github.com/somasis/makedown
 #
 # requirements:
 #     discount `markdown` (http://www.pell.portland.or.us/~orc/Code/discount/)

@@ -2,7 +2,7 @@
 #
 # genwikilinks.sh
 # part of makedown, a build system for making markdown websites.
-# https://gitlab.com/somasis/makedown
+# https://github.com/somasis/makedown
 #
 # generates a list of links to each page, based on directory structure, as well 
 # as each header in each page. idea being that you can then insert them into the 

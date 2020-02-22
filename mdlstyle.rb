@@ -1,6 +1,6 @@
 # mdlstyle.rb - style configuration for markdownlint.
 # part of makedown, a build system for making markdown websites.
-# https://gitlab.com/somasis/makedown
+# https://github.com/somasis/makedown
 
 rule 'MD003', :style => :atx            # atx style headers
 rule 'MD004', :style => :dash           # enforce dashes for unordered lists

@@ -2,7 +2,7 @@
 #
 # makedown.sh
 # part of makedown, a build system for making markdown websites.
-# https://gitlab.com/somasis/makedown
+# https://github.com/somasis/makedown
 #
 # create nice HTML with `markdown` and add some templating functionality.
 #

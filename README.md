@@ -33,7 +33,7 @@ makedown is a build system for generating static websites.
         total 16K
         -rw-r--r-- 1 somasis somasis  71 Nov 11 05:44 index.md
         -rw-r--r-- 1 somasis somasis 421 Nov 11 05:51 page.template
-        $ git clone https://gitlab.com/somasis/makedown
+        $ git clone https://github.com/somasis/makedown
         Cloning into 'makedown'...
         remote: Counting objects: 11, done.
         remote: Compressing objects: 100% (11/11), done.
@@ -42,7 +42,7 @@ makedown is a build system for generating static websites.
 
     If you are cloning it into an existing git repository, you'll want to have it be a submodule.
 
-        $ git submodule add https://gitlab.com/somasis/makedown makedown
+        $ git submodule add https://github.com/somasis/makedown makedown
         Cloning into '/home/somasis/git/somasis.com/makedown'...
         remote: Counting objects: 60, done.
         remote: Compressing objects: 100% (40/40), done.
@@ -84,14 +84,14 @@ makedown is a build system for generating static websites.
         [master f57c37e] Update makedown
          1 file changed, 1 insertion(+), 1 deletion(-)
         $ git push -v
-        Pushing to git@gitlab.com:somasis/www.makedown.gov.git
+        Pushing to git@github.com:somasis/www.makedown.gov.git
         Counting objects: 2, done.
         Delta compression using up to 4 threads.
         Compressing objects: 100% (2/2), done.
         Writing objects: 100% (2/2), 254 bytes | 254.00 KiB/s, done.
         Total 2 (delta 1), reused 0 (delta 0)
         remote: Resolving deltas: 100% (1/1), completed with 1 local object.
-        To gitlab.com:somasis/www.makedown.gov.git
+        To github.com:somasis/www.makedown.gov.git
            3839b44..f57c37e  master -> master
         updating local tracking ref 'refs/remotes/origin/master'
 
