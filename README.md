@@ -101,4 +101,9 @@ makedown is a build system for generating static websites.
 
 ## License
 
-All files in this repository are licensed under the [0BSD license](http://landley.net/toybox/license.html).
+**makedown** is in the public domain.
+
+To the extent possible under law, Kylie McClain <kylie@somas.is>
+has waived all copyright and related or neighboring rights to this work.
+
+<http://creativecommons.org/publicdomain/zero/1.0/>
